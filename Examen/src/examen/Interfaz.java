@@ -42,6 +42,19 @@ public class Interfaz extends javax.swing.JFrame {
         }
         return documento;
     }
+    
+    public String GuardarArchivo(File archivo, String documento){
+        String mensaje = null;
+        try{
+            salida = new FileOutputStream(archivo);
+            byte [] bytxt=documento.getBytes();
+            salida.write(bytxt);
+            mensaje="Archivo Guardado";
+        }catch (Exception e){
+            
+        }
+        return mensaje;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,6 +89,11 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnSimultaneo.setText("Mas archivos");
 
@@ -172,6 +190,25 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAbrirActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        if(seleccionar.showDialog(null, "Guardar")==JFileChooser.APPROVE_OPTION){
+            archivo=seleccionar.getSelectedFile();
+            if(archivo.getName().endsWith("txt")){
+                String Documento=txtTarea.getText();
+                String mensaje=GuardarArchivo(archivo, Documento);
+                if(mensaje!=null){
+                    JOptionPane.showMessageDialog(null, mensaje);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Archivo no compatible");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Guardar documento de texto");
+            }
+            
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
