@@ -4,6 +4,11 @@
  */
 package examen;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Alicia Ulloa
@@ -15,6 +20,25 @@ public class Buscar extends javax.swing.JFrame {
      */
     public Buscar() {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        //setSize(600,500);      
+        ControlArchivo ar=new ControlArchivo();       
+        txtDireccionArchivo.setEnabled(false);
+        textAreaResultado.setEnabled(false);
+        buscar.setEnabled(false);
+    }
+    
+    void buscar(){
+      if(!txtDireccionArchivo.getText().trim().isEmpty() && !txtPalabraBuscada.getText().trim().isEmpty())
+        {
+            ControlArchivo.buscarPalabraEnArchivo(txtDireccionArchivo.getText(), txtPalabraBuscada.getText(), textAreaResultado);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Complete datos. Seleccione archivo e ingrese el dato a buscar");
+        }
     }
 
     /**
@@ -27,45 +51,84 @@ public class Buscar extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnBuscar = new javax.swing.JButton();
-        txtBuscar = new javax.swing.JTextField();
+        buscar = new javax.swing.JButton();
+        txtPalabraBuscada = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textAreaResultado = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        txtDireccionArchivo = new javax.swing.JTextField();
+        lblNombre = new javax.swing.JLabel();
+        lblTamanio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 153));
 
-        btnBuscar.setText("Buscar");
+        buscar.setText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        textAreaResultado.setColumns(20);
+        textAreaResultado.setRows(5);
+        jScrollPane1.setViewportView(textAreaResultado);
+
+        jButton1.setText("Selleccionar Documento");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        txtDireccionArchivo.setEditable(false);
+        txtDireccionArchivo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        lblNombre.setBackground(new java.awt.Color(0, 153, 51));
+        lblNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        lblTamanio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnBuscar)))
-                .addGap(37, 37, 37))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(lblTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtPalabraBuscada, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(buscar))
+                    .addComponent(jScrollPane1)
+                    .addComponent(txtDireccionArchivo))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
+                .addComponent(txtDireccionArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPalabraBuscada, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(65, 65, 65))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -76,11 +139,40 @@ public class Buscar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        buscar();
+        textAreaResultado.setEnabled(true);
+    }//GEN-LAST:event_buscarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFileChooser dialogo=new JFileChooser();
+        dialogo.setDialogTitle("Abrir");
+        //Aquí se está filtrando el tipo de archivo a mostrar en la ventana
+        //en este caso se hace para que sólo muestre archivos txt
+        FileNameExtensionFilter filtro=new FileNameExtensionFilter("Archivos txt","txt");
+        dialogo.setFileFilter(filtro);
+        //condición para verificar si selecciona algún archivo
+        if(dialogo.showOpenDialog(this)==JFileChooser.APPROVE_OPTION)
+        {
+            String pathArchivo=dialogo.getSelectedFile().getPath();
+             txtDireccionArchivo.setText(pathArchivo);
+            
+           
+          
+            File archivo=new File(pathArchivo);
+            lblNombre.setText(archivo.getName());
+            //Tamaño del archivo en bit
+            lblTamanio.setText(String.valueOf(archivo.length())+" bit");
+        }
+        
+        buscar.setEnabled(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,10 +210,14 @@ public class Buscar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton buscar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblTamanio;
+    private javax.swing.JTextArea textAreaResultado;
+    private javax.swing.JTextField txtDireccionArchivo;
+    private javax.swing.JTextField txtPalabraBuscada;
     // End of variables declaration//GEN-END:variables
 }
