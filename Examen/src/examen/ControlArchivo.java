@@ -29,6 +29,7 @@ public class ControlArchivo {
                 if ( texto.substring(posicionInicial, longitud).trim().toUpperCase().equals(palabraBuscada.trim().toUpperCase()))
                 {
                     cantidadPalabra++;
+                    
                 }
                 posicionInicial = i;
             }
@@ -98,4 +99,5 @@ public class ControlArchivo {
             }
         }
     }
+    
 }
