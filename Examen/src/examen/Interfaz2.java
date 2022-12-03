@@ -98,6 +98,11 @@ public class Interfaz2 extends javax.swing.JFrame {
 
         btnAbrir_Internet.setBackground(new java.awt.Color(255, 204, 153));
         btnAbrir_Internet.setText("Abrir desde internet");
+        btnAbrir_Internet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrir_InternetActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setBackground(new java.awt.Color(255, 204, 153));
         btnBuscar.setText("Buscar");
@@ -325,10 +330,15 @@ public class Interfaz2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardar2ActionPerformed
 
+    private void btnAbrir_InternetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrir_InternetActionPerformed
+        Internet sitio= new Internet();
+        sitio.setVisible(true);
+    }//GEN-LAST:event_btnAbrir_InternetActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
